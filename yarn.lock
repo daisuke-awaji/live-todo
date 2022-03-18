@@ -1365,6 +1365,16 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@liveblocks/client@^0.15.3":
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/@liveblocks/client/-/client-0.15.3.tgz#a95faf5741e5cf07ae5f3e0749fd0791ec62542e"
+  integrity sha512-pGhyKG6OL7c7oTDmFtzqBUgk/jToaIujkuS8Noi9rZcMdoTv0S9dOsoPFi2uTYkandM9izHRGjc7HHah4JkMIw==
+
+"@liveblocks/react@^0.15.3":
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/@liveblocks/react/-/react-0.15.3.tgz#d6b40c2b8340ef6f08ff1c3d4aa2dc9668fd4d10"
+  integrity sha512-AIp87kEgrwm8EqKxOiAZ9pSZPvwQg3bGylIL+hLWIOmb50mUpBAbu25YRXGXv2M4u7LY+YptxLDQyMH7Yw3ttw==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"

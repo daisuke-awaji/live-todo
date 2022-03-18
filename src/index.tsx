@@ -1,12 +1,22 @@
+import reportWebVitals from './reportWebVitals';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import { createClient } from '@liveblocks/client';
+import { LiveblocksProvider, RoomProvider } from '@liveblocks/react';
+
+const client = createClient({
+  publicApiKey: 'pk_live_bQIw3c6uwLWhV8bkXctQ6973',
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <LiveblocksProvider client={client}>
+      <RoomProvider id="my-room-id">
+        <App />
+      </RoomProvider>
+    </LiveblocksProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

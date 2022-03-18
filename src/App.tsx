@@ -1,26 +1,66 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useOthers, useUpdateMyPresence, useList } from '@liveblocks/react';
+import { useState } from 'react';
 
-function App() {
+function WhoIsHere() {
+  const others = useOthers();
+
+  return <div className="who_is_here">There are {others.count} other users online</div>;
+}
+
+function SomeoneIsTyping() {
+  const someoneIsTyping = useOthers()
+    .toArray()
+    .some((user) => user.presence?.isTyping);
+
+  return <div className="someone_is_typing">{someoneIsTyping ? 'Someone is typing...' : ''}</div>;
+}
+
+type TodoItem = {
+  text: string;
+};
+
+export default function App() {
+  const [draft, setDraft] = useState('');
+  const updateMyPresence = useUpdateMyPresence();
+  const todos = useList<TodoItem>('todos');
+
+  if (todos == null) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <WhoIsHere />
+      <input
+        type="text"
+        placeholder="What needs to be done?"
+        value={draft}
+        onChange={(e) => {
+          setDraft(e.target.value);
+          updateMyPresence({ isTyping: true });
+        }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            updateMyPresence({ isTyping: false });
+            todos.push({ text: draft });
+            setDraft('');
+          }
+        }}
+        onBlur={() => updateMyPresence({ isTyping: false })}
+      />
+      <SomeoneIsTyping />
+      {todos.map((todo, index) => {
+        return (
+          <div key={index} className="todo_container">
+            <div className="todo">{todo.text}</div>
+
+            <button className="delete_button" onClick={() => todos.delete(index)}>
+              ✕
+            </button>
+          </div>
+        );
+      })}
     </div>
   );
 }
-
-export default App;
